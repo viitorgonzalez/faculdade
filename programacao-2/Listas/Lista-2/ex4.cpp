@@ -3,22 +3,21 @@
 
 #include "ex4library.h"
 
-const int MAX = 30;
-
 using namespace std;
 
 int main() {
-  int escolha = 0, tam = 0, valor = 0;
+  int escolha = 0, tam = 0;
+  double valor = 0;;
   bool sair = false;
 
-  BolsaValor acoes[MAX]; 
+  struct BolsaValor *acoes = new BolsaValor[30]; 
   
   do {
 
     cout << endl << "Digite a opção desejada: " << endl;
     cout << "1- Cadastrar" << endl;
     cout << "2- Mostrar cadastro" << endl;
-    cout << "3- Mostrar todos cadastros" << endl;
+    cout << "3- Mostrar cadastros abaixo do valor" << endl;
     cout << "4- Média do valor das ações cadastradas" << endl;
     cout << "5- Desvio padrão do valor das ações cadastradas" << endl;
     cout << "6- Atualizar cadastro" << endl;
@@ -44,8 +43,8 @@ int main() {
         break;
 
       case 2:
-        for(int i = 0; i < tam; i++)
-          mostraStruct(&acoes[i]);
+        for(int i = 0; i < tam; i++) 
+          mostraStruct(&acoes[i], tam);
         break;
 
       case 3:
@@ -55,8 +54,7 @@ int main() {
         cin >> valor;
         cin.ignore();
 
-        for(int i = 0; i < tam; i++)  
-          mostraStructsAbaixo(&acoes[i], tam, valor);
+        mostraStructsAbaixo(acoes, tam, valor);
         break;
 
       case 4:

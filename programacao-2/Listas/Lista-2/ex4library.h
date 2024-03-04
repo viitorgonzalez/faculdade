@@ -16,8 +16,8 @@ typedef struct BolsaValor {
 } BolsaValor;
 
 void preencheStruct(BolsaValor *bolsa);
-void mostraStruct(BolsaValor *bolsa);
-void mostraStructsAbaixo(BolsaValor *bolsa, int tam, int valor);
+void mostraStruct(BolsaValor *bolsa, int tam);
+void mostraStructsAbaixo(BolsaValor *bolsa, int tam, double valor);
 float retornaMedia(BolsaValor *bolsa, int tam);
 float retornaDesvioPadrao(BolsaValor *bolsa, int tam);
 void atualizaValor(BolsaValor *bolsa, int tam);
@@ -42,17 +42,18 @@ void preencheStruct(BolsaValor *bolsa) {
     cin.ignore();
 }
 
-void mostraStruct(BolsaValor *bolsa) {
-    cout << endl << "Nome:" << bolsa->nomeDaCompanhia;
-    cout << endl << "Área:" << bolsa->areaDeAtuacao;
-    cout << endl << "Valor:" << bolsa->valorDaAcao;
-    cout << endl << "Valor Anterior:" << bolsa->valorAnterior;
-    cout << endl << "Variação:" << bolsa->variacaoDoValorPorcentagem << endl;
+void mostraStruct(BolsaValor *bolsa, int tam) {
+      cout << endl << "Nome:" << bolsa->nomeDaCompanhia;
+      cout << endl << "Área:" << bolsa->areaDeAtuacao;
+      cout << endl << "Valor:" << bolsa->valorDaAcao;
+      cout << endl << "Valor Anterior:" << bolsa->valorAnterior;
+      cout << endl << "Variação:" << bolsa->variacaoDoValorPorcentagem << endl;
 }
 
-void mostraStructsAbaixo(BolsaValor *bolsa, int tam, int valor) {
+void mostraStructsAbaixo(BolsaValor *bolsa, int tam, double valor) {
   for(int i = 0; i < tam; i++)
-    (bolsa[i].valorDaAcao < valor) ? mostraStruct(&bolsa[i]) : (void)0;
+  if (bolsa[i].valorDaAcao < valor) 
+      mostraStruct(&bolsa[i], tam);
 }
 
 float retornaMedia(BolsaValor *bolsa, int tam) {
