@@ -1,4 +1,4 @@
-e#include <stdio.h>
+#include <stdio.h>
 
 void copiaString(char *origem, char *destino) {
 
