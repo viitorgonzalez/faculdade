@@ -9,9 +9,9 @@ void trocaValores(int *a, int *b) {
 int main() {
     int a = 6, b = 8;
 
-    trocaValores();
+    trocaValores(&a, &b);
 
-    printf("Valores:\n");
+    printf("Resultado: a = %d, b = %d\n", a, b);
 
     return 0;
 }
