@@ -1,17 +1,4 @@
 #include "Produto.h"
-/*
-Produto();
-void imprimirProduto();
-
-string getNome();
-void setNome(string nome);
-
-string getDescricao();
-void setDescricao(string descricao);
-
-float getPreco();
-void setPreco(float preco);
-*/
 
 Produto::Produto() {
     this->nome = "";
@@ -19,6 +6,30 @@ Produto::Produto() {
     this->preco = 0;
 }
 
-void Produto:imprimirProduto() {
+string Produto::getNome() {
+    return nome;
+}
+
+void Produto::setNome(string nome) {
+    this->nome = nome;
+}
+
+string Produto::getDescricao() {
+    return descricao;
+}
+
+void Produto::setDescricao(string descricao) {
+    this->descricao = descricao;
+}
+
+float Produto::getPreco() {
+    return preco;
+}
+
+void Produto::setPreco(float preco) {
+    this->preco = preco;
+}
+
+void Produto::imprimirProduto() {
     cout << this->nome << endl << this->descricao << endl << this->preco << endl;
 }
