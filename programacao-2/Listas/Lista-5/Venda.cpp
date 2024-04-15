@@ -1,32 +1,54 @@
-#include "Venda.h"
+#include "itemPedido.cpp"
 
-Venda::Venda() {
-    this->cliente = "";
-    this->itens = new ItemPedido[10];
-    this->data = "";
-    this->valorTotalDaVenda = 0;
-}
-
-void Venda::imprimirVenda() {
-    for(int i = 0; i < 10; i++)
-        itens->imprimirItem();    
-    cout << cliente << endl << data << endl << valorTotalDaVenda << endl;
-}
-
-string Venda::getCliente() {
-    return cliente;
-}
-
-void Venda::setCliente(string cliente) {
-    this->cliente = cliente;
-}
-
-ItemPedido Venda::getItens() {
-    return *itens;
-}
-
-void Venda::setItens(ItemPedido *itens) {
-    this->itens = itens;
-}
-
-
+class Venda{
+	private:
+		string cliente;
+		itemPedido *itens;
+		string data;
+		float valorTotalVenda;
+	public:
+		string getCliente(){
+			return cliente;
+		}
+		void setCliente(string cliente){
+			this->cliente=cliente;
+		}
+		
+		itemPedido* getItens(){
+			return itens;
+		}
+		void setItens(itemPedido *itens){
+			this->itens=itens;
+		}
+		
+		string getData(){
+			return data;
+		}
+		void setData(string data){
+			this->data=data;
+		}
+		
+		float getValorTotalVenda(){
+			return valorTotalVenda;
+		}
+		void setValorTotalVenda(float valorTotalVenda){
+			this->valorTotalVenda=valorTotalVenda;
+		}
+		
+		Venda(){
+			cliente="";
+			data="";
+			valorTotalVenda=0;
+			itens=new itemPedido[10];
+			
+		}
+		
+	void imprimirVenda(){
+	for (int i=0;i<10;i++){
+		itens[i].imprimirItem();
+	}
+		cout<<"Cliente: "<<cliente<<"\nData: "<<data<<"Valor Total: "<<valorTotalVenda<<endl;
+	    
+	}
+		
+};

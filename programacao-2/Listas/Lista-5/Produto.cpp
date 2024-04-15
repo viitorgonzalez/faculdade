@@ -1,35 +1,46 @@
-#include "Produto.h"
+#include <iostream>
+using namespace std;
 
-Produto::Produto() {
-    this->nome = "";
-    this->descricao = "";
-    this->preco = 0;
-}
-
-string Produto::getNome() {
-    return nome;
-}
-
-void Produto::setNome(string nome) {
-    this->nome = nome;
-}
-
-string Produto::getDescricao() {
-    return descricao;
-}
-
-void Produto::setDescricao(string descricao) {
-    this->descricao = descricao;
-}
-
-float Produto::getPreco() {
-    return preco;
-}
-
-void Produto::setPreco(float preco) {
-    this->preco = preco;
-}
-
-void Produto::imprimirProduto() {
-    cout << this->nome << endl << this->descricao << endl << this->preco << endl;
-}
+class Produto{
+	private:
+		string nome;
+		string descricao;
+		float preco;
+	public:
+		Produto(){
+			nome="";
+			descricao="";
+			preco=0;
+		}
+		
+		void imprimirProduto(){
+			
+	       cout<<"Nome: "<<nome<<"\nDescricao: "<<"Preço: "<<preco<<endl;
+		}
+		
+		
+		string getNome(){
+			return nome;
+		}
+		
+		void setNome(string nome){
+			this->nome = nome;
+		}
+		
+		string getDescricao(){
+			return descricao;
+		}
+		
+		void setDescricao(string descricao){
+			this->descricao = descricao;
+		}
+		
+		float getPreco(){
+			return preco;
+		}
+		
+		void setPreco(float preco){
+			this->preco = preco;
+		}
+		
+};
