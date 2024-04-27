@@ -29,4 +29,10 @@ class PecaCarro : public Produto {
             this->marca = marca;
         }
 
+        void imprimeProduto() {
+            cout << "tipoCarro: " << getTipoCarro() << endl;
+            cout << "marca: " << getMarca() << endl;
+            cout << endl;
+        }
+
 };

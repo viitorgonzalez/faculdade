@@ -23,13 +23,6 @@ class Produto {
             quantidade += acrescimo;
         }
 
-        void imprimeProduto() {
-            cout << "Código: " << codigo << endl;
-            cout << "Descrição: " << descricao << endl;
-            cout << "Preço: " << preco << endl;
-            cout << "Quantidade em estoque: " << quantidade << endl;
-        }
-
         int getCodigo() {
             return codigo;
         }

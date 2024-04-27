@@ -28,5 +28,10 @@ class Livro : public Produto {
         void setNumeroPaginas(int numeroPaginas) {
             this->numeroPaginas = numeroPaginas;
         }
-
+        
+        void imprimeProduto() {
+            cout << "Autor: " << getAutor() << endl;
+            cout << "Número de páginas: " << getNumeroPaginas() << endl;
+            cout << endl;
+        }
 };

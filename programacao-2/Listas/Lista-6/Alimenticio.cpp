@@ -19,4 +19,9 @@ class Alimenticio : public Produto {
             this->validade = validade;
         }
 
+        void imprimeProduto() {
+            cout << "Validade: " << getValidade() << endl;
+            cout << endl;
+        }
+
 };

@@ -11,8 +11,9 @@ int main() {
     Livro* livros[SIZE] = {nullptr}; 
     Alimenticio* alimenticios[SIZE] = {nullptr}; 
     PecaCarro* pecas[SIZE] = {nullptr};
-    int codigoToIndex[SIZE] = {-1};
-    int contador = 0; 
+    int contadorLivros = 0; 
+    int contadorAlimenticios = 0; 
+    int contadorPecas = 0;
 
     int opcao, op, codigo, quantidade, numeroPaginas;
     double preco, valorTotal;
@@ -32,19 +33,13 @@ int main() {
         switch (opcao) {
             // Criar produto
             case 1:
-                if (contador >= SIZE) {
+                if (contadorLivros + contadorAlimenticios + contadorPecas >= SIZE) {
                     cout << "Limite de produtos alcançado!" << endl;
                     break;
                 }
 
                 cout << "Digite o código do produto:" << endl;
                 cin >> codigo;
-
-                // Verificar se o código já está em uso
-                if (codigoToIndex[codigo] != -1) {
-                    cout << "Código de produto já em uso!" << endl;
-                    break;
-                }
 
                 cout << "Digite a descrição do produto:" << endl;
                 cin.ignore(); // Limpa o buffer do teclado
@@ -65,9 +60,7 @@ int main() {
                         cout << "Digite o número de páginas:" << endl;
                         cin >> numeroPaginas;
 
-                        livros[contador] = new Livro(codigo, descricao, preco, quantidade, autor, numeroPaginas);
-                        codigoToIndex[codigo] = contador;
-                        contador++;
+                        livros[contadorLivros++] = new Livro(codigo, descricao, preco, quantidade, autor, numeroPaginas);
                         cout << "Livro cadastrado!" << endl;
                         break;
                     case 2:
@@ -75,9 +68,7 @@ int main() {
                         cin.ignore(); // Limpa o buffer do teclado
                         getline(cin, validade);
 
-                        alimenticios[contador] = new Alimenticio(codigo, descricao, preco, quantidade, validade);
-                        codigoToIndex[codigo] = contador;
-                        contador++;
+                        alimenticios[contadorAlimenticios++] = new Alimenticio(codigo, descricao, preco, quantidade, validade);
                         cout << "Alimentício cadastrado!" << endl;
                         break;
                     case 3:
@@ -85,12 +76,9 @@ int main() {
                         cin.ignore(); // Limpa o buffer do teclado
                         getline(cin, tipoCarro);
                         cout << "Digite a marca do carro:" << endl;
-                        cin.ignore(); // Limpa o buffer do teclado
                         getline(cin, marca);
 
-                        pecas[contador] = new PecaCarro(codigo, descricao, preco, quantidade, tipoCarro, marca);
-                        codigoToIndex[codigo] = contador;
-                        contador++;
+                        pecas[contadorPecas++] = new PecaCarro(codigo, descricao, preco, quantidade, tipoCarro, marca);
                         cout << "Peça de Carro cadastrada!" << endl;
                         break;
                     default:
@@ -106,48 +94,58 @@ int main() {
                 int acrescimo;
                 cin >> acrescimo;
 
-                // Verificar se o código é válido
-                if (codigo >= 0 && codigo < SIZE && codigoToIndex[codigo] != -1) {
-                    int index = codigoToIndex[codigo];
-                    if (livros[index] != nullptr) {
-                        livros[index]->mudaEstoque(acrescimo);
+                // Procura o produto correspondente ao código
+                for (int i = 0; i < contadorLivros; ++i) {
+                    if (livros[i]->getCodigo() == codigo) {
+                        livros[i]->mudaEstoque(acrescimo);
                         cout << "Estoque do produto alterado!" << endl;
-                    } else if (alimenticios[index] != nullptr) {
-                        alimenticios[index]->mudaEstoque(acrescimo);
-                        cout << "Estoque do produto alterado!" << endl;
-                    } else if (pecas[index] != nullptr) {
-                        pecas[index]->mudaEstoque(acrescimo);
-                        cout << "Estoque do produto alterado!" << endl;
-                    } else {
-                        cout << "Código de produto inválido!" << endl;
+                        break;
                     }
-                } else {
-                    cout << "Código de produto inválido!" << endl;
                 }
+                for (int i = 0; i < contadorAlimenticios; ++i) {
+                    if (alimenticios[i]->getCodigo() == codigo) {
+                        alimenticios[i]->mudaEstoque(acrescimo);
+                        cout << "Estoque do produto alterado!" << endl;
+                        break;
+                    }
+                }
+                for (int i = 0; i < contadorPecas; ++i) {
+                    if (pecas[i]->getCodigo() == codigo) {
+                        pecas[i]->mudaEstoque(acrescimo);
+                        cout << "Estoque do produto alterado!" << endl;
+                        break;
+                    }
+                }
+                cout << "Código de produto inválido!" << endl;
                 break;
             // Calcular valor total em estoque de um produto
             case 3:
                 cout << "Digite o código do produto:" << endl;
                 cin >> codigo;
 
-                // Verificar se o código é válido
-                if (codigo >= 0 && codigo < SIZE && codigoToIndex[codigo] != -1) {
-                    int index = codigoToIndex[codigo];
-                    double valorTotal;
-                    if (livros[index] != nullptr) {
-                        valorTotal = livros[index]->getQuantidade() * livros[index]->getPreco();
-                    } else if (alimenticios[index] != nullptr) {
-                        valorTotal = alimenticios[index]->getQuantidade() * alimenticios[index]->getPreco();
-                    } else if (pecas[index] != nullptr) {
-                        valorTotal = pecas[index]->getQuantidade() * pecas[index]->getPreco();
-                    } else {
-                        cout << "Código de produto inválido!" << endl;
+                // Procura o produto correspondente ao código e calcula o valor total em estoque
+                for (int i = 0; i < contadorLivros; ++i) {
+                    if (livros[i]->getCodigo() == codigo) {
+                        valorTotal = livros[i]->getQuantidade() * livros[i]->getPreco();
+                        cout << "Valor total em estoque do produto: " << valorTotal << endl;
                         break;
                     }
-                    cout << "Valor total em estoque do produto: " << valorTotal << endl;
-                } else {
-                    cout << "Código de produto inválido!" << endl;
                 }
+                for (int i = 0; i < contadorAlimenticios; ++i) {
+                    if (alimenticios[i]->getCodigo() == codigo) {
+                        valorTotal = alimenticios[i]->getQuantidade() * alimenticios[i]->getPreco();
+                        cout << "Valor total em estoque do produto: " << valorTotal << endl;
+                        break;
+                    }
+                }
+                for (int i = 0; i < contadorPecas; ++i) {
+                    if (pecas[i]->getCodigo() == codigo) {
+                        valorTotal = pecas[i]->getQuantidade() * pecas[i]->getPreco();
+                        cout << "Valor total em estoque do produto: " << valorTotal << endl;
+                        break;
+                    }
+                }
+                cout << "Código de produto inválido!" << endl;
                 break;
             // Imprimir todos os produtos de um tipo
             case 4:
@@ -164,8 +162,6 @@ int main() {
                         for (int i = 0; i < SIZE; ++i) {
                             if (livros[i] != nullptr) {
                                 livros[i]->imprimeProduto();
-                                cout << "Autor: " << livros[i]->getAutor() << endl;
-                                cout << "Número de Páginas: " << livros[i]->getNumeroPaginas() << endl;
                                 cout << endl;
                             }
                         }
@@ -175,8 +171,6 @@ int main() {
                         for (int i = 0; i < SIZE; ++i) {
                             if (alimenticios[i] != nullptr) {
                                 alimenticios[i]->imprimeProduto();
-                                cout << "Validade: " << alimenticios[i]->getValidade() << endl;
-                                cout << endl;
                             }
                         }
                         break;
@@ -185,8 +179,6 @@ int main() {
                         for (int i = 0; i < SIZE; ++i) {
                             if (pecas[i] != nullptr) {
                                 pecas[i]->imprimeProduto();
-                                cout << "Tipo de Carro: " << pecas[i]->getTipoCarro() << endl;
-                                cout << "Marca: " << pecas[i]->getMarca() << endl;
                                 cout << endl;
                             }
                         }
@@ -203,8 +195,6 @@ int main() {
                 for (int i = 0; i < SIZE; ++i) {
                     if (livros[i] != nullptr) {
                         livros[i]->imprimeProduto();
-                        cout << "Autor: " << livros[i]->getAutor() << endl;
-                        cout << "Número de Páginas: " << livros[i]->getNumeroPaginas() << endl;
                         cout << endl;
                     }
                 }
@@ -212,7 +202,6 @@ int main() {
                 for (int i = 0; i < SIZE; ++i) {
                     if (alimenticios[i] != nullptr) {
                         alimenticios[i]->imprimeProduto();
-                        cout << "Validade: " << alimenticios[i]->getValidade() << endl;
                         cout << endl;
                     }
                 }
@@ -220,8 +209,6 @@ int main() {
                 for (int i = 0; i < SIZE; ++i) {
                     if (pecas[i] != nullptr) {
                         pecas[i]->imprimeProduto();
-                        cout << "Tipo de Carro: " << pecas[i]->getTipoCarro() << endl;
-                        cout << "Marca: " << pecas[i]->getMarca() << endl;
                         cout << endl;
                     }
                 }
