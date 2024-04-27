@@ -30,6 +30,10 @@ class Livro : public Produto {
         }
         
         void imprimeProduto() {
+            cout << "Código: " << getCodigo() << endl;
+            cout << "Descrição: " << getDescricao() << endl;
+            cout << "Preço: " << getPreco() << endl;
+            cout << "Quantidade: " << getQuantidade() << endl;
             cout << "Autor: " << getAutor() << endl;
             cout << "Número de páginas: " << getNumeroPaginas() << endl;
             cout << endl;

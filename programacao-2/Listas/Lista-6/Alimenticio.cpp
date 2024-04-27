@@ -20,6 +20,10 @@ class Alimenticio : public Produto {
         }
 
         void imprimeProduto() {
+            cout << "Código: " << getCodigo() << endl;
+            cout << "Descrição: " << getDescricao() << endl;
+            cout << "Preço: " << getPreco() << endl;
+            cout << "Quantidade: " << getQuantidade() << endl;
             cout << "Validade: " << getValidade() << endl;
             cout << endl;
         }

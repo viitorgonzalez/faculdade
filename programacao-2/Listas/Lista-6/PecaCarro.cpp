@@ -30,6 +30,10 @@ class PecaCarro : public Produto {
         }
 
         void imprimeProduto() {
+            cout << "Código: " << getCodigo() << endl;
+            cout << "Descrição: " << getDescricao() << endl;
+            cout << "Preço: " << getPreco() << endl;
+            cout << "Quantidade: " << getQuantidade() << endl;
             cout << "tipoCarro: " << getTipoCarro() << endl;
             cout << "marca: " << getMarca() << endl;
             cout << endl;

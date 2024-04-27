@@ -11,6 +11,7 @@ int main() {
     Livro* livros[SIZE] = {nullptr}; 
     Alimenticio* alimenticios[SIZE] = {nullptr}; 
     PecaCarro* pecas[SIZE] = {nullptr};
+
     int contadorLivros = 0; 
     int contadorAlimenticios = 0; 
     int contadorPecas = 0;
@@ -90,7 +91,7 @@ int main() {
             case 2:
                 cout << "Digite o código do produto:" << endl;
                 cin >> codigo;
-                cout << "Digite a quantidade a ser acrescentada ou subtraída:" << endl;
+                cout << "Digite a quantidade a ser acrescentada:" << endl;
                 int acrescimo;
                 cin >> acrescimo;
 
@@ -116,7 +117,6 @@ int main() {
                         break;
                     }
                 }
-                cout << "Código de produto inválido!" << endl;
                 break;
             // Calcular valor total em estoque de um produto
             case 3:
@@ -145,7 +145,6 @@ int main() {
                         break;
                     }
                 }
-                cout << "Código de produto inválido!" << endl;
                 break;
             // Imprimir todos os produtos de um tipo
             case 4:
