@@ -1,10 +1,19 @@
-#include <string>
+#pragma once
 
-class Professor {
-    private:
+#include "Pessoa.cpp"
 
-        string nome;
+class Professor : public Pessoa {
+private:
+    int id;
 
-    public:
-        Professor()
-}
+public:
+    Professor(const string nome, int id) : Pessoa(nome), id(id) {}
+
+    void setId(int novoId) {
+        id = novoId;
+    }
+
+    int getId() const {
+        return id;
+    }
+};
