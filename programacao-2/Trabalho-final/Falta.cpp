@@ -12,6 +12,8 @@ private:
     string *data;
 
 public:
+    Falta() {}
+
     Falta(Aluno aluno, Disciplina disciplina) {
         this->disciplina = disciplina;
         this->aluno = aluno;
@@ -37,6 +39,7 @@ public:
     string *getData(){
     	return data;
 	}
+    
 	void setData(string *data){
 		this->data = data;
 	}
