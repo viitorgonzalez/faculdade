@@ -14,6 +14,8 @@ private:
     float n3;
 
 public:
+    Nota() {}
+
     Nota(Aluno aluno, Disciplina disciplina) {
         this->aluno = aluno;
         this->disciplina = disciplina;
