@@ -7,7 +7,7 @@ class Aluno : public Pessoa {
         int matricula;
 
     public:
-        Aluno() : Pessoa(" ") {
+        Aluno() : Pessoa("") {
             matricula = 0;
         }
 
