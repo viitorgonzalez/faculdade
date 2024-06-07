@@ -18,5 +18,4 @@ public:
     void setTurmaNotas(Nota *turmaNotas) {
         this->turmaNotas = turmaNotas;
     }
-
 };
