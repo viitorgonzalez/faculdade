@@ -18,5 +18,4 @@ public:
     void setTurmaFaltas(Falta *turmaFaltas) {
         this->turmaFaltas = turmaFaltas;
     }
-
 };
