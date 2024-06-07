@@ -12,7 +12,9 @@ private:
     string *data;
 
 public:
-    Falta() {}
+    Falta() {
+        data = new string[10];
+    }
 
     Falta(Aluno aluno, Disciplina disciplina) {
         this->disciplina = disciplina;
