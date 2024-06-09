@@ -1,6 +1,5 @@
 #include "CadastroNota.cpp"
 #include "CadastroFalta.cpp"
-#include "Professor.cpp"
 
 #include "Utils.cpp"
 
@@ -8,10 +7,6 @@
 
 int main() {
     Utils utils;
-
-    Professor professor[1] = {
-        {"Cristina", 0}
-    };
 
     Aluno aluno[3] = {
         {"André", 0},
@@ -73,7 +68,6 @@ int main() {
 
                             turmaNotas[matriculaAluno].setN1(n);
                             n = 0;
-                            nomeAluno = turmaNotas[matriculaAluno].getAluno().getNome();
                             break;
 
                         case 2: 
