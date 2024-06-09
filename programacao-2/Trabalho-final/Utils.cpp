@@ -8,7 +8,7 @@ class Utils {
         Utils() {}
 
         void menuPrincipal() {
-            cout << endl << "Selecione seu nome: " << endl;
+            cout << endl << "Selecione: " << endl;
             cout << "0- Sair " << endl;
             cout << "1- Cadastrar nota: " << endl;
             cout << "2- Consultar notas: " << endl;
