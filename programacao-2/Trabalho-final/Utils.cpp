@@ -31,7 +31,7 @@ class Utils {
         return ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0));
         }
 
-        bool isValidDate(const string& date) {
+        bool isValidDate(string date) {
             if (date.length() != 10)
                 return false;
 
