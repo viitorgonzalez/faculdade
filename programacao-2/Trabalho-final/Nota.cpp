@@ -62,11 +62,4 @@ class Nota {
             this->n3 = n3;
         }
 
-        void exibirNota() {
-            cout << "Aluno: " << aluno.getNome() << endl;
-            cout << "Disciplina: " << disciplina.getMateria() << endl;
-            cout << "Nota 1: " << n1 << endl;
-            cout << "Nota 2: " << n2 << endl;
-            cout << "Nota 3: " << n3 << endl;
-        }
 };
