@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
-#define MAX_VERTICES 100
-
-// Definição das estruturas do grafo
+// Estruturas e funções anteriores
 typedef struct NoAdj* ApontadorNo;
 
 typedef struct NoAdj {
@@ -15,14 +14,14 @@ typedef struct ListaAdj* ApontadorLista;
 
 typedef struct ListaAdj {
     ApontadorNo cabeca;
+    int grau;
 } TListaAdj;
 
 typedef struct Grafo {
     int n; // número de vértices
-    TListaAdj array[MAX_VERTICES]; // array de listas de adjacências
+    ApontadorLista array;
 } TGrafo;
 
-// Função para criar um novo nó da lista de adjacências
 ApontadorNo novoNo(int destino) {
     ApontadorNo no = (ApontadorNo) malloc(sizeof(TNoAdj));
     no->destino = destino;
@@ -30,63 +29,88 @@ ApontadorNo novoNo(int destino) {
     return no;
 }
 
-// Função para adicionar uma aresta ao grafo não direcionado
+TGrafo* novoGrafo(int n) {
+    TGrafo* grafo = (TGrafo*) malloc(sizeof(TGrafo));
+    grafo->n = n;
+
+    grafo->array = (ApontadorLista) malloc(n * sizeof(TListaAdj));
+
+    for (int i = 0; i < n; ++i) {
+        grafo->array[i].cabeca = NULL;
+        grafo->array[i].grau = 0;
+    }
+
+    return grafo;
+}
+
 void novaAresta(TGrafo* grafo, int origem, int destino) {
-    // Adiciona uma aresta de origem para destino
     ApontadorNo no = novoNo(destino);
     no->prox = grafo->array[origem].cabeca;
     grafo->array[origem].cabeca = no;
+    grafo->array[origem].grau++;
+
+    no = novoNo(origem);
+    no->prox = grafo->array[destino].cabeca;
+    grafo->array[destino].cabeca = no;
+    grafo->array[destino].grau++;
 }
 
-// Função para imprimir as menores distâncias a partir de um vértice usando BFS
-void BFS(TGrafo* grafo, int origem) {
-    int visitado[MAX_VERTICES] = {0}; // vetor para marcar os vértices visitados
-    int distancia[MAX_VERTICES]; // vetor de distâncias
-    int fila[MAX_VERTICES]; // fila para a BFS
-    int frente = 0, tras = 0;
-
-    // Inicializa todas as distâncias como -1 (não alcançável)
-    for (int i = 0; i < grafo->n; ++i)
-        distancia[i] = -1;
-
-    // Começa a BFS a partir do vértice de origem
-    fila[tras++] = origem;
-    visitado[origem] = 1;
-    distancia[origem] = 0;
-
-    while (frente != tras) {
-        int u = fila[frente++];
-        ApontadorNo no = grafo->array[u].cabeca;
+void imprimir(TGrafo* grafo) {
+    for (int v = 0; v < grafo->n; ++v) {
+        ApontadorNo no = grafo->array[v].cabeca;
+        printf("Lista de adjacencias do vertice %d(grau=%d) ", v, grafo->array[v].grau);
         while (no) {
-            int v = no->destino;
-            if (!visitado[v]) {
-                fila[tras++] = v;
-                visitado[v] = 1;
-                distancia[v] = distancia[u] + 1;
-            }
+            printf("-> %d", no->destino);
             no = no->prox;
+        }
+        printf("\n");
+    }
+}
+
+// Função para executar a BFS
+void BFS(TGrafo* grafo, int verticeInicial) {
+    int *distancia = (int*) malloc(grafo->n * sizeof(int));
+    for (int i = 0; i < grafo->n; i++) {
+        distancia[i] = INT_MAX; // Inicializa todas as distâncias como infinito
+    }
+    distancia[verticeInicial] = 0; // Distância do vértice inicial para si mesmo é 0
+
+    int *fila = (int*) malloc(grafo->n * sizeof(int));
+    int inicio = 0, fim = 0;
+
+    // Enfileira o vértice inicial
+    fila[fim++] = verticeInicial;
+
+    while (inicio < fim) {
+        int vertice = fila[inicio++]; // Desenfileira um vértice
+
+        // Percorre todos os vértices adjacentes
+        ApontadorNo noAdj = grafo->array[vertice].cabeca;
+        while (noAdj) {
+            int destino = noAdj->destino;
+
+            // Se o vértice não foi visitado
+            if (distancia[destino] == INT_MAX) {
+                distancia[destino] = distancia[vertice] + 1;
+                fila[fim++] = destino;
+            }
+
+            noAdj = noAdj->prox;
         }
     }
 
     // Imprime as distâncias
-    printf("Menores distancias a partir do vertice %d:\n", origem);
-    for (int i = 0; i < grafo->n; ++i) {
-        printf("Vertice %d: ", i);
-        if (distancia[i] == -1)
-            printf("Nao alcancavel\n");
-        else
-            printf("%d\n", distancia[i]);
+    for (int i = 0; i < grafo->n; i++) {
+        printf("Distancia do vertice %d para o vertice %d: %d\n", verticeInicial, i, distancia[i]);
     }
+
+    free(distancia);
+    free(fila);
 }
 
 int main() {
     int n = 5; // Número de vértices do grafo
-    TGrafo* graph = (TGrafo*) malloc(sizeof(TGrafo));
-    graph->n = n;
-
-    // Inicializa as listas de adjacências
-    for (int i = 0; i < n; ++i)
-        graph->array[i].cabeca = NULL;
+    TGrafo* graph = novoGrafo(n);
 
     // Adiciona as arestas
     novaAresta(graph, 0, 1);
@@ -98,7 +122,10 @@ int main() {
     novaAresta(graph, 3, 4);
     novaAresta(graph, 0, 2);
 
-    // Chama a BFS a partir do vértice 0
+    // Imprime a lista de adjacências do grafo
+    imprimir(graph);
+
+    // Executa a BFS a partir do vértice 0
     BFS(graph, 0);
 
     return 0;
