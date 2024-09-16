@@ -109,24 +109,30 @@ void BFS(TGrafo* grafo, int verticeInicial) {
 }
 
 int main() {
-    int n = 5; // Número de vértices do grafo
+    int n = 10; // Número de vértices do grafo
     TGrafo* graph = novoGrafo(n);
 
     // Adiciona as arestas
     novaAresta(graph, 0, 1);
-    novaAresta(graph, 0, 4);
-    novaAresta(graph, 1, 2);
-    novaAresta(graph, 1, 3);
-    novaAresta(graph, 1, 4);
-    novaAresta(graph, 2, 3);
-    novaAresta(graph, 3, 4);
     novaAresta(graph, 0, 2);
+    novaAresta(graph, 1, 6);
+    novaAresta(graph, 1, 4);
+    novaAresta(graph, 2, 4);
+    novaAresta(graph, 2, 3);
+    novaAresta(graph, 6, 9);
+    novaAresta(graph, 6, 5);
+    novaAresta(graph, 6, 4); 
+    novaAresta(graph, 4, 7);
+    novaAresta(graph, 9, 5);
+    novaAresta(graph, 7, 8);
+    novaAresta(graph, 5, 3);
+    novaAresta(graph, 8, 3);
 
     // Imprime a lista de adjacências do grafo
     imprimir(graph);
 
     // Executa a BFS a partir do vértice 0
-    BFS(graph, 0);
+    BFS(graph, 2);
 
     return 0;
 }
