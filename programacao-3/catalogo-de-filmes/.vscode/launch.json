@@ -9,6 +9,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "com.devflix.App",
+      "projectName": "catalogo-de-filmes_23fa00e8"
+    },
+    {
+      "type": "java",
       "name": "Current File",
       "request": "launch",
       "mainClass": "${file}"

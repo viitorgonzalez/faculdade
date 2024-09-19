@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 public class App {
     public static void main(String[] args) throws Exception {
         int opc = 0;
-        String[] opcs = {"Opção 1", "Opção 2", "Opção 3"};
+        String[] opcs = {"Adicionar Filme", "Buscar Filme", "Exibir Filmes"};
         do {
             opc = JOptionPane.showOptionDialog(
                 null,
@@ -19,19 +19,19 @@ public class App {
 
             switch (opc) {
                 case 0:
-                    System.out.println("Você escolheu Opção 1");
+                    System.out.println("Adicionar");
                     break;
                 case 1:
-                    System.out.println("Você escolheu Opção 2");
+                    System.out.println("Buscar");
                     break;
                 case 2:
-                    System.out.println("Você escolheu Opção 3");
+                    System.out.println("Exibir");
                     break;
                 default:
                     System.out.println("Nenhuma opção válida escolhida");
                     break;
             }
-        } while(opc != 0);
+        } while(opc != -1);
     }
 }
 
