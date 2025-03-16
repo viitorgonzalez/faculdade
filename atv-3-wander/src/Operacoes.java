@@ -24,14 +24,14 @@ public class Operacoes {
                 if (numero != 0) {
                     resultado /= numero;
                 } else {
-                    return Double.NaN; 
+                    return Double.NaN;
                 }
                 break;
             case "RAIZ Q":
                 resultado = Math.sqrt(numero);
                 break;
-            case "x^y": 
-                resultado = Math.pow(numeroAnterior, numero); 
+            case "x^y":
+                resultado = Math.pow(numeroAnterior, numero);
                 break;
             case "x^2":
                 resultado = Math.pow(numero, 2);
@@ -71,16 +71,9 @@ public class Operacoes {
                         resultado = aux / (numeroAnterior / 100);
                         break;
                 }
-
-                System.out.println("----------------------------------");
-                System.out.println("resultado: " + resultado);
-                System.out.println("numeroAnterior: " + numeroAnterior);
-                System.out.println("numero: " + numero);
-                System.out.println("aux: " + aux);
-                System.out.println("Operador atual: " + operadorAnterior);
                 break;
             default:
-                resultado = numero; 
+                resultado = numero;
         }
         return resultado;
     }

@@ -17,21 +17,21 @@ public class Calculadora extends JFrame {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(2, 1, 5, 5));
 
-        // Display para exibir o número
+        // Display para exibir os números digitados
         display = new JTextField("0");
         display.setFont(new Font("Arial", Font.BOLD, 24));
         display.setHorizontalAlignment(JTextField.RIGHT);
-        display.setEditable(false);
+        display.setEditable(false); // Impede edição direta pelo usuário
         display.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         display.setBackground(new Color(240, 240, 240));
 
-        // JLabel para exibir o operador atual
+        // Label para exibir o operador atual
         operadorLabel = new JLabel("");
         operadorLabel.setFont(new Font("Arial", Font.BOLD, 20));
         operadorLabel.setHorizontalAlignment(JLabel.RIGHT);
         operadorLabel.setForeground(new Color(169, 169, 169, 150));
 
-        // Adiciona display e operadorLabel ao painel
+        // Adiciona display e operadorLabel ao painel superior
         topPanel.add(operadorLabel);
         topPanel.add(display);
 
@@ -39,8 +39,9 @@ public class Calculadora extends JFrame {
 
         // Painel de botões
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 5, 10, 10)); // Ajusta o espaçamento entre os botões
+        panel.setLayout(new GridLayout(5, 5, 10, 10)); // Define um espaçamento uniforme entre os botões
 
+        // Lista de botões da calculadora
         String[] buttons = {
                 "AC", "+/-", "%", "RAIZ Q", "/",
                 "7", "8", "9", "x^y", "*",
@@ -49,24 +50,29 @@ public class Calculadora extends JFrame {
                 "0", ".", "X!", "10^X", "="
         };
 
+        // Criação dos botões e adição ao painel
         for (String text : buttons) {
             JButton button = new JButton(text);
             button.setFont(new Font("Arial", Font.BOLD, 18));
             button.setBackground(new Color(240, 240, 240)); 
-            button.setForeground(Color.BLACK); 
-            button.setFocusPainted(false); // Remove a borda quando clica
+            button.setForeground(Color.BLACK);
+            button.setFocusPainted(false); // Remove a borda ao clicar
             button.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
             panel.add(button);
+
+            // Define o evento de clique para cada botão
             button.addActionListener(e -> handleButtonClick(button.getText()));
         }
 
         add(panel, BorderLayout.CENTER);
 
-        operacoes = new Operacoes();
+        operacoes = new Operacoes(); // Inicializa o objeto que realiza os cálculos
         setVisible(true);
     }
 
+    // Método responsável por lidar com os cliques nos botões
     private void handleButtonClick(String text) {
+        // Caso seja um número, atualiza o display corretamente
         if (text.matches("[0-9]")) {
             if (novoNumero) {
                 display.setText(text);
@@ -74,29 +80,40 @@ public class Calculadora extends JFrame {
             } else {
                 display.setText(display.getText() + text);
             }
-        } else if (text.equals(".")) {
+        }
+        // Adiciona um ponto decimal, se ainda não houver um
+        else if (text.equals(".")) {
             if (!display.getText().contains(".")) {
                 display.setText(display.getText() + ".");
                 novoNumero = false;
             }
-        } else if (text.equals("AC")) {
+        }
+        // Limpa a calculadora
+        else if (text.equals("AC")) {
             operacoes.reset();
             operadorAtual = "";
             display.setText("0");
             operadorLabel.setText("");
             novoNumero = true;
-        } else if (text.equals("=")) {
+        }
+        // Realiza a operação ao pressionar "="
+        else if (text.equals("=")) {
             double numero = Double.parseDouble(display.getText());
             double resultado = operacoes.realizarOperacao(numero, operadorAtual);
+
+            // Verifica se ocorreu um erro matemático
             if (Double.isNaN(resultado)) {
                 display.setText("Math Error");
             } else {
                 display.setText(formatarResultado(resultado));
             }
+            
             operadorAtual = "";
             operadorLabel.setText("");
             novoNumero = true;
-        } else if (text.equals("+/-")) {
+        }
+        // Alterna entre positivo e negativo
+        else if (text.equals("+/-")) {
             String currentText = display.getText();
             if (!currentText.equals("0")) {
                 if (currentText.startsWith("-")) {
@@ -105,15 +122,18 @@ public class Calculadora extends JFrame {
                     display.setText("-" + currentText);
                 }
             }
-        } else {
+        }
+        // Trata operações matemáticas
+        else {
             if (!novoNumero) {
                 operadorLabel.setText(operadorAtual);
             }
-             
+
             double numero = Double.parseDouble(display.getText());
             operacoes.setNumeroAnterior(numero);
             double resultado = operacoes.realizarOperacao(numero, operadorAtual);
 
+            // Atualiza o display com o resultado parcial
             display.setText(formatarResultado(resultado)); 
             
             operacoes.setOperadorAnterior(operadorAtual);
@@ -124,6 +144,7 @@ public class Calculadora extends JFrame {
         }
     }
 
+    // Formata a exibição do resultado para remover casas decimais desnecessárias
     private String formatarResultado(double resultado) {
         if (resultado == (int) resultado) {
             return String.valueOf((int) resultado);
